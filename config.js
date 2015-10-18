@@ -8,5 +8,13 @@ module.exports = {
       client: path.join(__dirname, 'client'),
       views: path.join(__dirname, 'server/views')
     }
+  },
+  test: {
+    ip: '0.0.0.0',
+    port: 9449,
+    path: {
+      client: path.join(__dirname, 'client'),
+      views: path.join(__dirname, 'server/views')
+    }
   }
 };

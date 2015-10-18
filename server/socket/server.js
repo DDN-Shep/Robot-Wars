@@ -1,16 +1,22 @@
 var socketio = require('socket.io');
 
 module.exports = (function(server) {
-  var io = this.listen(server),
-      sockets = [];
+  var io = {
+    server: this.listen(server),
+    sockets: []
+  };
 
-  io.on('connection', function(socket) {
-    sockets.push(socket);
+  io.server.on('connection', function(socket) {
+    io.sockets.push(socket);
+
+    socket.on('echo', function(message) {
+      socket.emit('echo', message);
+    });
 
     socket.on('disconnect', function() {
-      sockets.splice(sockets.indexOf(socket), 1);
+      io.sockets.splice(io.sockets.indexOf(socket), 1);
     });
   });
-  
-  return this;
+
+  return io;
 }).bind(socketio);
