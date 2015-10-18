@@ -1,0 +1,457 @@
+// General styles
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: radial-gradient(ellipse, #3A6073 10%, #16222A 90%);
+  font: {
+    family: monospace;
+    size: 1.1em;
+    weight: normal;
+  };
+  color: #fff;
+  
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a:active, a:hover, a:link, a:visited {
+  outline: 0;
+}
+
+body {
+  > * {
+    flex: 0 0 50%;
+    height: 20vh;
+    display: flex;
+    flex-flow: row wrap;
+    
+    &.dashboard {
+      justify-content: flex-end;
+      padding: 2.5vh;
+      min-height: 150px;
+      min-width: 200px;
+
+      .space-invader {
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin: -.5em;
+      }
+      
+      > table {
+        td:first-of-type {
+          text: {
+            align: right;
+          };
+        }
+        
+        th, td {
+          height: 1.5em;
+        }
+
+        tbody > tr:first-of-type td:first-of-type {
+          height: 4em;
+        }
+
+        td {
+          text:{
+            align: center;
+          };
+        }
+
+        td:last-of-type {
+          width: 8em;
+        }
+      }
+    }
+    
+    &.controller {
+      justify-content: flex-start;
+      min-height: 150px;
+      min-width: 200px;
+      padding: 2.5vh;
+  
+      > .button {
+        width: 3em;
+        height: 3em;
+        margin: 1em 0;
+        border: {
+          color: #fff;
+          radius: 1em;
+          style: solid;
+          width: 1px;
+        };
+
+        &.active, &:active {
+          background: {
+            color: rgba(66, 114, 166, 0.9);
+          }
+        }
+
+        &:focus, &:hover {
+          box: {
+            shadow: 0 0 .25em #fff, 0 0 .25em #fff inset;
+          };
+        }
+
+        &:first-of-type, &:last-of-type {
+          margin: 4em 0;
+        }
+
+        &:before {
+          display: inline-block;
+          content: attr(title);
+          width: 100%;
+          line: {
+            height: 2em;
+          };
+          font: {
+            size: 1.5em;
+            weight: bold;
+          };
+          text: {
+            align: center;
+            shadow: 0 0 .5em #fff;
+          };
+          vertical: {
+            align: center;
+          };
+        }
+      }
+    }
+    
+    &.grid {
+      flex: 0 0 60%;
+      height: 60%;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      align-self: center;
+      min-width: 500px;
+      min-height: 500px;
+      margin: 2.5vh;
+
+      &:focus {
+        outline: 0;
+        box: {
+          shadow: 0 0 1em #fff;
+        };
+      }
+
+      &:not(:focus) > * {
+        z-index: -2;
+      }
+
+      &:not(:focus):before {
+        display: block;
+        content: 'Click on the grid to activate control';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 25rem auto;
+        width: 300px;
+        font: {
+          size: 2em;
+          weight: bold;
+        };
+        text: {
+          align: center;
+          shadow: 0 0 1em #fff;
+        };
+        z-index: -1;
+      }
+      
+      > * {
+        flex: 0 0 10%;
+        height: 10%;
+        background: {
+          color: rgba(66, 114, 166, 0.9);
+        }
+        box: {
+          shadow: 0 0 1px #fff, 0 0 1px #fff inset;
+        };
+        border: {
+          width: 0;
+        };
+        color: rgba(119, 183, 222, 0.9);
+        line: {
+          height: 3.5em;
+        };
+        text: {
+          align: center;
+        };
+        vertical: {
+          align: center;
+        };
+      }
+    }
+  }
+}
+
+// Directional styles
+.north {
+  transform: rotate(0);
+}
+
+.east {
+  transform: rotate(90deg);
+}
+
+.south {
+  transform: rotate(180deg);
+}
+
+.west {
+  transform: rotate(270deg);
+}
+
+// Space invader styles
+$invader-color: #fff;
+$cell-size: 2em;
+
+.space-invader {
+  position: absolute;
+  top: $cell-size * 2;
+  left: $cell-size * 2;
+  margin: $cell-size / 2;
+  border: 0.1em solid $invader-color;
+  background-color: $invader-color;
+  width: 0.25em;
+  height: 0.25em;
+  transition: transform .5s ease, top .5s ease, left .5s ease;
+
+  &.animate {
+    animation: 1s infinite;
+  }
+
+  @for $i from 1 through 3 {
+    &#{&}-#{$i} {
+      animation-name: space-invader- + $i;
+    }
+  }
+}
+
+.space-invader-1 {
+  box-shadow:
+    0 0 0 .25em $invader-color,
+    0 .25em 0 .25em $invader-color,
+    -.625em .375em 0 .125em $invader-color,
+    .625em .375em 0 .125em $invader-color,
+    -.75em -.75em 0 0 $invader-color,
+    .75em -.75em 0 0 $invader-color,
+    -.5em -.5em 0 0 $invader-color,
+    .5em -.5em 0 0 $invader-color,
+    -.75em -.25em 0 0 $invader-color,
+    -.5em -.25em 0 0 $invader-color,
+    .5em -.25em 0 0 $invader-color,
+    .75em -.25em 0 0 $invader-color,
+    -1em 0 0 0 $invader-color,
+    -.75em 0 0 0 $invader-color,
+    .75em 0 0 0 $invader-color,
+    1em 0 0 0 $invader-color,
+    -1em .25em 0 0 $invader-color,
+    1em .25em 0 0 $invader-color,
+    -.75em .75em 0 0 $invader-color,
+    .75em .75em 0 0 $invader-color,
+    /* Left Arm */
+    1.25em .25em 0 0 $invader-color,
+    1.25em .5em 0 0 $invader-color,
+    1.25em .75em 0 0 $invader-color,
+    /* Right Arm */
+    -1.25em .25em 0 0 $invader-color,
+    -1.25em .5em 0 0 $invader-color,
+    -1.25em .75em 0 0 $invader-color,
+    /* Left Foot */
+    -.25em 1em 0 0 $invader-color,
+    -.5em 1em 0 0 $invader-color,
+    /* Right Foot */
+    .25em 1em 0 0 $invader-color,
+    .5em 1em 0 0 $invader-color;
+}
+
+.space-invader-2 {
+  box-shadow:
+    /* Body */
+    -.125em -.5em 0 .25em $invader-color,
+    .125em -.5em 0 .25em $invader-color,
+    -.75em -.375em 0 .125em $invader-color,
+    -.875em -.375em 0 .125em $invader-color,
+    .75em -.375em 0 .125em $invader-color,
+    .875em -.375em 0 .125em $invader-color,
+    -1em 0 0 .25em $invader-color,
+    1em 0 0 .25em $invader-color,
+    -.5em .25em 0 0 $invader-color,
+    -.25em .25em 0 0 $invader-color,
+    0 .25em 0 0 $invader-color,
+    .25em .25em 0 0 $invader-color,
+    .5em .25em 0 0 $invader-color,
+    /* Crotch */
+    .3125em .5em 0 0 $invader-color,
+    .5em .5em 0 0 $invader-color,
+    .5em .5em 0 0 $invader-color,
+    -.3125em .5em 0 0 $invader-color,
+    -.5em .5em 0 0 $invader-color,
+    -.5em .5em 0 0 $invader-color,
+    .0625em .75em 0 0 $invader-color,
+    -.0625em .75em 0 0 $invader-color,
+    /* Right Leg */
+    -.625em .75em 0 0 $invader-color,
+    -.8125em .75em 0 0 $invader-color,
+    -1.0625em 1em 0 0 $invader-color,
+    -1.25em 1em 0 0 $invader-color,
+    /* Left Leg */
+    .625em .75em 0 0 $invader-color,
+    .8125em .75em 0 0 $invader-color,
+    1.0625em 1em 0 0 $invader-color,
+    1.25em 1em 0 0 $invader-color;
+}
+
+.space-invader-3 {
+  box-shadow:
+    /* Body */
+    0 -.625em 0 .125em $invader-color,
+    -.25em -.375em 0 .125em $invader-color,
+    .25em -.375em 0 .125em $invader-color,
+    .625em -.25em 0 0 $invader-color,
+    -.625em -.25em 0 0 $invader-color,
+    0 .125em 0 .125em $invader-color,
+    -.75em .125em 0 .125em $invader-color,
+    .75em .125em 0 .125em $invader-color,
+    .375em .25em 0 0 $invader-color,
+    -.375em .25em 0 0 $invader-color,
+    /* Crotch */
+    .125em .5em 0 0 $invader-color,
+    -.125em .5em 0 0 $invader-color,
+    /* Right Leg */
+    -.625em .5em 0 0 $invader-color,
+    -.875em .75em 0 0 $invader-color,
+    -.625em 1em 0 0 $invader-color,
+    -.625em 1em 0 0 $invader-color,
+    /* Left Leg */
+    .625em .5em 0 0 $invader-color,
+    .875em .75em 0 0 $invader-color,
+    .625em 1em 0 0 $invader-color,
+    .625em 1em 0 0 $invader-color;
+}
+
+@keyframes space-invader-1 {
+  50% {
+    box-shadow:
+      0 0 0 .25em $invader-color,
+      0 .25em 0 .25em $invader-color,
+      -.625em .375em 0 .125em $invader-color,
+      .625em .375em 0 .125em $invader-color,
+      -.75em -.75em 0 0 $invader-color,
+      .75em -.75em 0 0 $invader-color,
+      -.5em -.5em 0 0 $invader-color,
+      .5em -.5em 0 0 $invader-color,
+      -.75em -.25em 0 0 $invader-color,
+      -.5em -.25em 0 0 $invader-color,
+      .5em -.25em 0 0 $invader-color,
+      .75em -.25em 0 0 $invader-color,
+      -1em 0 0 0 $invader-color,
+      -.75em 0 0 0 $invader-color,
+      .75em 0 0 0 $invader-color,
+      1em 0 0 0 $invader-color,
+      -1em .25em 0 0 $invader-color,
+      1em .25em 0 0 $invader-color,
+      -.75em .75em 0 0 $invader-color,
+      .75em .75em 0 0 $invader-color,
+      /* Left Arm */
+      1.25em 0 0 0 $invader-color,
+      1.25em -.25em 0 0 $invader-color,
+      1.25em -.5em 0 0 $invader-color,
+      /* Right Arm */
+      -1.25em 0 0 0 $invader-color,
+      -1.25em -.25em 0 0 $invader-color,
+      -1.25em -.5em 0 0 $invader-color,
+      /* Left Foot */
+      -1em 1em 0 0 $invader-color,
+      -1em 1em 0 0 $invader-color,
+      /* Right Foot */
+      1em 1em 0 0 $invader-color,
+      1em 1em 0 0 $invader-color;
+  }
+}
+
+@keyframes space-invader-2 {
+  50% {
+    box-shadow:
+      /* Body */
+      -.125em -.5em 0 .25em $invader-color,
+      .125em -.5em 0 .25em $invader-color,
+      -.75em -.375em 0 .125em $invader-color,
+      -.875em -.375em 0 .125em $invader-color,
+      .75em -.375em 0 .125em $invader-color,
+      .875em -.375em 0 .125em $invader-color,
+      -1em 0 0 .25em $invader-color,
+      1em 0 0 .25em $invader-color,
+      -.5em .25em 0 0 $invader-color,
+      -.25em .25em 0 0 $invader-color,
+      0 .25em 0 0 $invader-color,
+      .25em .25em 0 0 $invader-color,
+      .5em .25em 0 0 $invader-color,
+      /* Crotch */
+      .3125em .5em 0 0 $invader-color,
+      .5em .5em 0 0 $invader-color,
+      .625em .5em 0 0 $invader-color,
+      -.3125em .5em 0 0 $invader-color,
+      -.5em .5em 0 0 $invader-color,
+      -.625em .5em 0 0 $invader-color,
+      .0625em .75em 0 0 $invader-color,
+      -.0625em .75em 0 0 $invader-color,
+      /* Right Leg */
+      -.75em .75em 0 0 $invader-color,
+      -.9375em .75em 0 0 $invader-color,
+      -.75em 1em 0 0 $invader-color,
+      -.5em 1em 0 0 $invader-color,
+      /* Left Leg */
+      .75em .75em 0 0 $invader-color,
+      .9375em .75em 0 0 $invader-color,
+      .75em 1em 0 0 $invader-color,
+      .5em 1em 0 0 $invader-color;
+  }
+}
+
+@keyframes space-invader-3 {
+  50% {
+    box-shadow:
+      /* Body */
+      0 -.625em 0 .125em $invader-color,
+      -.25em -.375em 0 .125em $invader-color,
+      .25em -.375em 0 .125em $invader-color,
+      .625em -.25em 0 0 $invader-color,
+      -.625em -.25em 0 0 $invader-color,
+      0 .125em 0 .125em $invader-color,
+      -.75em .125em 0 .125em $invader-color,
+      .75em .125em 0 .125em $invader-color,
+      .375em .25em 0 0 $invader-color,
+      -.375em .25em 0 0 $invader-color,
+      /* Crotch */
+      .125em .5em 0 0 $invader-color,
+      -.125em .5em 0 0 $invader-color,
+      /* Right Leg */
+      -.375em .5em 0 0 $invader-color,
+      -.625em .75em 0 0 $invader-color,
+      -.875em 1em 0 0 $invader-color,
+      -.375em 1em 0 0 $invader-color,
+      /* Left Leg */
+      .375em .5em 0 0 $invader-color,
+      .625em .75em 0 0 $invader-color,
+      .875em 1em 0 0 $invader-color,
+      .375em 1em 0 0 $invader-color;
+  }
+}

@@ -1,4 +1,27 @@
 extends ./shared/layout
 
 block content
-  p This is an initial commit to GitHub
+  .dashboard
+    table
+      thead
+        tr
+          th(colspan='2') Dashboard
+      tbody
+        tr
+          td Robot:
+          td
+            .space-invader.space-invader-1.animate
+        tr
+          td Position:
+          td [value]
+        tr
+          td Movement:
+          td [value]
+  .controller
+    .button(title='L')
+    .button(title='M')
+    .button(title='R')
+  .grid(tabindex='1')
+    - for (var y = 9; y >= 0; y--)
+      - for (var x = 0; x < 10; x++)
+        div= x + ',' + y
